@@ -8,5 +8,5 @@ import lombok.Data;
 public class PublisherModel
 {
     private Integer publisherId;
-    private String fullName;
+    private String name;
 }
