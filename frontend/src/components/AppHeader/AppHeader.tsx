@@ -1,0 +1,333 @@
+'use client'
+
+import React, { useState } from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import MenuItem from '@mui/material/MenuItem';
+import {
+    Assignment, BrightnessMedium,
+    DarkMode,
+    ExpandMore,
+    LightMode,
+    Logout,
+    MenuBook,
+    Person,
+    ShoppingCart
+} from '@mui/icons-material';
+import { Divider, ListItemIcon, ListItemText, useColorScheme } from "@mui/material";
+
+const AppHeader = () =>
+{
+    const [navMenuAnchorEl, setNavMenuAnchorEl] = useState<null | HTMLElement>(null);
+    const [themeMenuAnchorEl, setThemeMenuAnchorEl] = useState<null | HTMLElement>(null);
+    const [userMenuAnchorEl, setUserMenuAnchorEl] = useState<null | HTMLElement>(null);
+
+    const { mode, setMode } = useColorScheme();
+
+    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) =>
+    {
+        setNavMenuAnchorEl(event.currentTarget);
+    };
+
+    const handleOpenThemeMenu = (event: React.MouseEvent<HTMLElement>) =>
+    {
+        setThemeMenuAnchorEl(event.currentTarget);
+    };
+
+    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) =>
+    {
+        setUserMenuAnchorEl(event.currentTarget);
+    };
+
+    const handleCloseNavMenu = () =>
+    {
+        setNavMenuAnchorEl(null);
+    };
+
+    const handleCloseThemeMenu = () =>
+    {
+        setThemeMenuAnchorEl(null);
+    };
+
+    const handleCloseUserMenu = () =>
+    {
+        setUserMenuAnchorEl(null);
+    };
+
+    const handleThemeChange = (value: 'light' | 'dark' | 'system') =>
+    {
+        setMode(value);
+        handleCloseThemeMenu();
+    };
+
+    return (
+        <AppBar position="static">
+            <Container maxWidth="xl">
+                <Toolbar disableGutters>
+                    <MenuBook sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}/>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="a"
+                        href="/"
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontWeight: 700,
+                            color: 'inherit',
+                            textDecoration: 'none',
+                            flexGrow: 1
+                        }}
+                    >
+                        Knjižara
+                    </Typography>
+
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleOpenNavMenu}
+                            color="inherit"
+                        >
+                            <MenuIcon/>
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={navMenuAnchorEl}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            open={Boolean(navMenuAnchorEl)}
+                            onClose={handleCloseNavMenu}
+                            sx={{ display: { xs: 'block', md: 'none' } }}
+                        >
+                            <MenuItem key="Prijava" onClick={handleCloseNavMenu}>
+                                <ListItemIcon>
+                                    <Person/>
+                                </ListItemIcon>
+                                <ListItemText primary="Prijava"/>
+                            </MenuItem>
+                            <Divider/>
+                            <MenuItem key="Registracija" onClick={handleCloseNavMenu}>
+                                <ListItemIcon>
+                                    <Person/>
+                                </ListItemIcon>
+                                <ListItemText primary="Registracija"/>
+                            </MenuItem>
+                            <Divider/>
+                            <MenuItem key="Korpa" onClick={handleCloseNavMenu}>
+                                <ListItemIcon>
+                                    <ShoppingCart/>
+                                </ListItemIcon>
+                                <ListItemText primary="Korpa"/>
+                            </MenuItem>
+                            <Divider/>
+                            <MenuItem key="Tema" onClick={handleOpenThemeMenu}>
+                                <ListItemIcon>
+                                    <LightMode/>
+                                </ListItemIcon>
+                                <ListItemText primary="Tema"/>
+                            </MenuItem>
+                            <Menu
+                                sx={{ mt: '45px' }}
+                                id="menu-appbar"
+                                anchorEl={themeMenuAnchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(themeMenuAnchorEl)}
+                                onClose={handleCloseThemeMenu}
+                            >
+                                <MenuItem key="Sistemska" selected={mode === 'system'}
+                                          onClick={() => handleThemeChange('system')}>
+                                    <ListItemIcon>
+                                        <BrightnessMedium/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Sistemska"/>
+                                </MenuItem>
+                                <Divider/>
+                                <MenuItem key="Svetla" selected={mode === 'light'}
+                                          onClick={() => handleThemeChange('light')}>
+                                    <ListItemIcon>
+                                        <LightMode/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Svetla"/>
+                                </MenuItem>
+                                <Divider/>
+                                <MenuItem key="Tamna" selected={mode === 'dark'}
+                                          onClick={() => handleThemeChange('dark')}>
+                                    <ListItemIcon>
+                                        <DarkMode/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Tamna"/>
+                                </MenuItem>
+                            </Menu>
+                        </Menu>
+                    </Box>
+                    <MenuBook sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}/>
+                    <Typography
+                        variant="h5"
+                        noWrap
+                        component="a"
+                        href="/"
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'flex', md: 'none' },
+                            flexGrow: 1,
+                            fontWeight: 700,
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        Knjižara
+                    </Typography>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <Button
+                            key="Prijava"
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white' }}
+                            startIcon={<Person/>}
+                        >
+                            Prijava
+                        </Button>
+                        <Button
+                            key="Registracija"
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white' }}
+                            startIcon={<Person/>}
+                        >
+                            Registracija
+                        </Button>
+                        <Button
+                            key="Korpa"
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white' }}
+                            startIcon={<ShoppingCart/>}
+                        >
+                            Korpa
+                        </Button>
+                        <Button
+                            key="Tema"
+                            onClick={handleOpenThemeMenu}
+                            sx={{ my: 2, color: 'white' }}
+                            startIcon={<LightMode/>}
+                            endIcon={<ExpandMore/>}
+                        >
+                            Tema
+                        </Button>
+                        <Menu
+                            sx={{ mt: '45px' }}
+                            id="menu-appbar"
+                            anchorEl={themeMenuAnchorEl}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(themeMenuAnchorEl)}
+                            onClose={handleCloseThemeMenu}
+                        >
+                            <MenuItem key="Sistemska" selected={mode === 'system'}
+                                      onClick={() => handleThemeChange('system')}>
+                                <ListItemIcon>
+                                    <BrightnessMedium/>
+                                </ListItemIcon>
+                                <ListItemText primary="Sistemska"/>
+                            </MenuItem>
+                            <Divider/>
+                            <MenuItem key="Svetla" selected={mode === 'light'}
+                                      onClick={() => handleThemeChange('light')}>
+                                <ListItemIcon>
+                                    <LightMode/>
+                                </ListItemIcon>
+                                <ListItemText primary="Svetla"/>
+                            </MenuItem>
+                            <Divider/>
+                            <MenuItem key="Tamna" selected={mode === 'dark'} onClick={() => handleThemeChange('dark')}>
+                                <ListItemIcon>
+                                    <DarkMode/>
+                                </ListItemIcon>
+                                <ListItemText primary="Tamna"/>
+                            </MenuItem>
+                        </Menu>
+                    </Box>
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Button
+                            key="Profil"
+                            onClick={handleOpenUserMenu}
+                            sx={{ my: 2, color: 'white' }}
+                            startIcon={<Person/>}
+                            endIcon={<ExpandMore/>}
+                        >
+                            Profil
+                        </Button>
+                        <Menu
+                            sx={{ mt: '45px' }}
+                            id="menu-appbar"
+                            anchorEl={userMenuAnchorEl}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(userMenuAnchorEl)}
+                            onClose={handleCloseUserMenu}
+                        >
+                            <MenuItem key="Profil" onClick={handleCloseUserMenu}>
+                                <ListItemIcon>
+                                    <Person/>
+                                </ListItemIcon>
+                                <ListItemText primary="Profil"/>
+                            </MenuItem>
+                            <Divider/>
+                            <MenuItem key="Narudžbine" onClick={handleCloseUserMenu}>
+                                <ListItemIcon>
+                                    <Assignment/>
+                                </ListItemIcon>
+                                <ListItemText primary="Narudžbine"/>
+                            </MenuItem>
+                            <Divider/>
+                            <MenuItem key="Odajava" onClick={handleCloseUserMenu}>
+                                <ListItemIcon>
+                                    <Logout/>
+                                </ListItemIcon>
+                                <ListItemText primary="Odajava"/>
+                            </MenuItem>
+                        </Menu>
+                    </Box>
+                </Toolbar>
+            </Container>
+        </AppBar>
+    );
+};
+
+export default AppHeader;
