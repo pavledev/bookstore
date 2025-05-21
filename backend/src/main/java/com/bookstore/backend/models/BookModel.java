@@ -12,6 +12,7 @@ public class BookModel
     private Integer bookId;
     private Integer categoryId;
     private Integer publisherId;
+    private String publisherName;
 
     private String title;
     private String mediumImagePath;
