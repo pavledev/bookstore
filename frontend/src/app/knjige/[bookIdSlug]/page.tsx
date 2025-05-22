@@ -58,6 +58,11 @@ const BookDetailsPage = () =>
 
     const handleAddToCart = () =>
     {
+        if (book == null)
+        {
+            return;
+        }
+
         dispatch({ type: 'ADD', payload: book.bookId });
         setSnackbarOpen(true);
     };
