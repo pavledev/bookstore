@@ -21,7 +21,8 @@ import {
     Person,
     ShoppingCart
 } from '@mui/icons-material';
-import { Divider, ListItemIcon, ListItemText, useColorScheme } from "@mui/material";
+import { Badge, Divider, ListItemIcon, ListItemText, useColorScheme } from "@mui/material";
+import { useCart } from "@/context/CartContext";
 
 const AppHeader = () =>
 {
@@ -30,6 +31,8 @@ const AppHeader = () =>
     const [userMenuAnchorEl, setUserMenuAnchorEl] = useState<null | HTMLElement>(null);
 
     const { mode, setMode } = useColorScheme();
+
+    const { totalItems } = useCart();
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) =>
     {
@@ -223,7 +226,29 @@ const AppHeader = () =>
                             key="Korpa"
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white' }}
-                            startIcon={<ShoppingCart/>}
+                            startIcon={
+                                <Box position="relative" width="24px" height="24px">
+                                    <ShoppingCart/>
+                                    {totalItems > 0 && (
+                                        <Badge
+                                            badgeContent={totalItems}
+                                            color="primary"
+                                            overlap="circular"
+                                            sx={{
+                                                position: 'absolute',
+                                                top: -3,
+                                                right: 1,
+                                                '& .MuiBadge-badge': {
+                                                    fontSize: '0.7rem',
+                                                    height: 18,
+                                                    minWidth: 18,
+                                                    padding: '0 4px',
+                                                },
+                                            }}
+                                        />
+                                    )}
+                                </Box>
+                            }
                         >
                             Korpa
                         </Button>

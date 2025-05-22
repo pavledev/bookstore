@@ -5,6 +5,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from '../theme';
 import React from "react";
 import { Box } from '@mui/material';
+import { CartProvider } from "@/context/CartContext";
 
 const roboto = Roboto({
     weight: ['300', '400', '500', '700'],
@@ -20,15 +21,17 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode; }>) =>
         <body>
         <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
-                <Box
-                    sx={{
-                        backgroundColor: 'background.default',
-                        color: 'text.primary',
-                        minHeight: '100vh'
-                    }}
-                >
-                    {children}
-                </Box>
+                <CartProvider>
+                    <Box
+                        sx={{
+                            backgroundColor: 'background.default',
+                            color: 'text.primary',
+                            minHeight: '100vh'
+                        }}
+                    >
+                        {children}
+                    </Box>
+                </CartProvider>
             </ThemeProvider>
         </AppRouterCacheProvider>
         </body>
