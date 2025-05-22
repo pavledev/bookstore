@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("books")
 @RequiredArgsConstructor
@@ -41,5 +43,11 @@ public class BookController
         Integer id = Integer.parseInt(idWithSlug.split("-")[0]);
 
         return bookService.getBookById(id);
+    }
+
+    @PostMapping("/by-ids")
+    public List<BookModel> getBooksByIds(@RequestBody List<Integer> ids)
+    {
+        return bookService.getBooksByIds(ids);
     }
 }

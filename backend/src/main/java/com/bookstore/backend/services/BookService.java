@@ -12,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BookService implements IBookService
@@ -78,5 +80,13 @@ public class BookService implements IBookService
                 .orElseThrow(() -> new EntityNotFoundException("Book with ID " + id + " not found"));
 
         return bookMapper.toModel(book);
+    }
+
+    @Override
+    public List<BookModel> getBooksByIds(List<Integer> ids)
+    {
+        List<Book> books = bookRepository.findAllById(ids);
+
+        return bookMapper.toModelList(books);
     }
 }
