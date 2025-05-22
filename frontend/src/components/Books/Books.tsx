@@ -254,7 +254,7 @@ const Books = ({ categoryId }: BooksProps) =>
                                 authors={book.authors}
                                 price={book.price}
                                 discountPrice={book.discountPrice}
-                                href={`/books/${book.bookId}-${slugify(book.title)}`}
+                                href={`/knjige/${book.bookId}-${slugify(book.title)}`}
                             />
                         ))}
                     </Grid>
