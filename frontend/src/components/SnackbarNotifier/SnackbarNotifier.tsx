@@ -20,7 +20,7 @@ export default function SnackbarNotifier({
             open={open}
             autoHideDuration={3000}
             onClose={onClose}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         >
             <Alert onClose={onClose} severity={severity} variant="filled" sx={{ width: '100%' }}>
                 {message}
