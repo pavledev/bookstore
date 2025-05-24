@@ -17,6 +17,7 @@ import { Book } from "@/types/book";
 import { Search } from "@mui/icons-material";
 import { slugify } from "@/utils/slugify";
 import Loading from "@/components/Loading/Loading";
+import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 
 interface BooksProps
 {
@@ -132,6 +133,11 @@ const Books = ({ categoryId }: BooksProps) =>
     if (areFiltersLoading || areBooksLoading)
     {
         return <Loading/>;
+    }
+
+    if (error != null)
+    {
+        return <ErrorMessage message={error}/>
     }
 
     return (
