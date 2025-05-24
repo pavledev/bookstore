@@ -64,7 +64,12 @@ const Books = ({ categoryId }: BooksProps) =>
             }
             catch (error: unknown)
             {
-                console.error('Greška prilikom učitavanja filtera:', err);
+                if (error instanceof Error)
+                {
+                    console.error('Greška:', error.message);
+
+                    setError('Došlo je do greške prilikom učitavanja filtera.');
+                }
             }
             finally
             {
