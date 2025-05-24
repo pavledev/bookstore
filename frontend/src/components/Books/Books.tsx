@@ -98,11 +98,11 @@ const Books = ({ categoryId }: BooksProps) =>
                 setBooks(response.data.content);
                 setTotalPages(response.data.totalPages || 1);
             }
-            catch (err: unknown)
+            catch (error: unknown)
             {
-                if (err instanceof Error)
+                if (error instanceof Error)
                 {
-                    console.error('Greška:', err.message);
+                    console.error('Greška:', error.message);
 
                     setError('Došlo je do greške prilikom učitavanja knjiga.');
                 }
