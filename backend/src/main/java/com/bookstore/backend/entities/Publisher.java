@@ -13,6 +13,5 @@ public class Publisher
     @Column(name = "publisher_id")
     private Integer publisherId;
 
-    @Column(name = "name")
     private String name;
 }

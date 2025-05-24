@@ -39,7 +39,7 @@ public class Book
     )
     private List<Genre> genres;
 
-    @Column(name = "title", nullable = false)
+    @Column(nullable = false)
     private String title;
 
     @Column(name = "medium_image_path", nullable = false)
@@ -51,10 +51,10 @@ public class Book
     @Column(name = "excerpt_path")
     private String excerptPath;
 
-    @Column(name = "quantity", nullable = false)
+    @Column(nullable = false)
     private Integer quantity;
 
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "publication_year")
@@ -63,22 +63,17 @@ public class Book
     @Column(name = "import_year")
     private Short importYear;
 
-    @Column(name = "binding")
     private String binding;
 
     @Column(name = "page_count")
     private Integer pageCount;
 
-    @Column(name = "script")
     private String script;
 
-    @Column(name = "weight")
     private String weight;
 
-    @Column(name = "unit")
     private String unit;
 
-    @Column(name = "isbn")
     private String isbn;
 
     @Column(name = "bar_code")
@@ -90,10 +85,9 @@ public class Book
     @Column(name = "age_group")
     private String ageGroup;
 
-    @Column(name = "format")
     private String format;
 
-    @Column(name = "price", nullable = false)
+    @Column(nullable = false)
     private Double price;
 
     @Column(name = "discount_price", nullable = false)
