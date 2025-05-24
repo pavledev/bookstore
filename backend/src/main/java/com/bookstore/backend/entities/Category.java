@@ -13,6 +13,9 @@ public class Category
     @Column(name = "category_id")
     private Integer categoryId;
 
+    @Column(nullable = false, unique = true)
     private String name;
+
+    @Column(nullable = false, unique = true)
     private String description;
 }
