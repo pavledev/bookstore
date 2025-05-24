@@ -119,21 +119,22 @@ const AppHeader = () =>
                             onClose={handleCloseNavMenu}
                             sx={{ display: { xs: 'block', md: 'none' } }}
                         >
-                            <MenuItem key="Prijava" onClick={handleCloseNavMenu}>
+                            <MenuItem key="Prijava" component="a" href="/prijava" onClick={handleCloseNavMenu}>
                                 <ListItemIcon>
                                     <Person/>
                                 </ListItemIcon>
                                 <ListItemText primary="Prijava"/>
                             </MenuItem>
                             <Divider/>
-                            <MenuItem key="Registracija" onClick={handleCloseNavMenu}>
+                            <MenuItem key="Registracija" component="a" href="/registracija"
+                                      onClick={handleCloseNavMenu}>
                                 <ListItemIcon>
                                     <Person/>
                                 </ListItemIcon>
                                 <ListItemText primary="Registracija"/>
                             </MenuItem>
                             <Divider/>
-                            <MenuItem key="Korpa" onClick={handleCloseNavMenu}>
+                            <MenuItem key="Korpa" component="a" href="/korpa" onClick={handleCloseNavMenu}>
                                 <ListItemIcon>
                                     <ShoppingCart/>
                                 </ListItemIcon>
@@ -208,6 +209,8 @@ const AppHeader = () =>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <Button
                             key="Prijava"
+                            component="a"
+                            href="/prijava"
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white' }}
                             startIcon={<Person/>}
@@ -216,6 +219,8 @@ const AppHeader = () =>
                         </Button>
                         <Button
                             key="Registracija"
+                            component="a"
+                            href="/registracija"
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white' }}
                             startIcon={<Person/>}
@@ -224,6 +229,8 @@ const AppHeader = () =>
                         </Button>
                         <Button
                             key="Korpa"
+                            component="a"
+                            href="/korpa"
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white' }}
                             startIcon={
