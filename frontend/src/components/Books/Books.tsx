@@ -62,7 +62,7 @@ const Books = ({ categoryId }: BooksProps) =>
                 setPublishers(publishersResponse.data);
                 setAuthors(authorsResponse.data);
             }
-            catch (err)
+            catch (error: unknown)
             {
                 console.error('Greška prilikom učitavanja filtera:', err);
             }
