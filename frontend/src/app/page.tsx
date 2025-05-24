@@ -37,7 +37,6 @@ const HomePage = () =>
 
     return (
         <>
-            <AppHeader/>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
                     <Tab label="Domaće knjige"/>

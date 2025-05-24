@@ -6,6 +6,7 @@ import theme from '../theme';
 import React from "react";
 import { Box } from '@mui/material';
 import { CartProvider } from "@/context/CartContext";
+import AppHeader from "@/components/AppHeader/AppHeader";
 
 const roboto = Roboto({
     weight: ['300', '400', '500', '700'],
@@ -29,6 +30,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode; }>) =>
                             minHeight: '100vh'
                         }}
                     >
+                        <AppHeader/>
                         {children}
                     </Box>
                 </CartProvider>
