@@ -66,7 +66,7 @@ export default function CartPage()
     );
 
     return (
-        <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Container maxWidth="xl" sx={{ py: 4 }}>
             <Typography variant="h5" gutterBottom>
                 Vaša korpa
             </Typography>
