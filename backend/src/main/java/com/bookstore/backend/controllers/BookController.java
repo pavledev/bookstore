@@ -1,6 +1,6 @@
 package com.bookstore.backend.controllers;
 
-import com.bookstore.backend.models.BookFilterRequest;
+import com.bookstore.backend.dtos.request.BookFilterRequest;
 import com.bookstore.backend.models.BookModel;
 import com.bookstore.backend.services.IBookService;
 import com.bookstore.backend.utils.SortHelper;

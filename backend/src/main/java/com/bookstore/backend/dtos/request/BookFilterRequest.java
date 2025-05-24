@@ -1,4 +1,4 @@
-package com.bookstore.backend.models;
+package com.bookstore.backend.dtos.request;
 
 import lombok.Data;
 

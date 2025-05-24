@@ -2,7 +2,7 @@ package com.bookstore.backend.services;
 
 import com.bookstore.backend.entities.Book;
 import com.bookstore.backend.mappers.BookMapper;
-import com.bookstore.backend.models.BookFilterRequest;
+import com.bookstore.backend.dtos.request.BookFilterRequest;
 import com.bookstore.backend.models.BookModel;
 import com.bookstore.backend.repositories.IBookRepository;
 import jakarta.persistence.EntityNotFoundException;

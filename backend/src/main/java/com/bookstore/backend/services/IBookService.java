@@ -1,6 +1,6 @@
 package com.bookstore.backend.services;
 
-import com.bookstore.backend.models.BookFilterRequest;
+import com.bookstore.backend.dtos.request.BookFilterRequest;
 import com.bookstore.backend.models.BookModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
