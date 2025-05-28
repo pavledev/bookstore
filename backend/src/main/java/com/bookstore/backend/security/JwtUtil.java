@@ -26,6 +26,9 @@ public class JwtUtil
     @Value("${security.jwt.expiration-time}")
     private long jwtExpirationTime;
 
+    @Value("${security.jwt.refresh-expiration-time}")
+    private long jwtRefreshExpirationTime;
+
     private SecretKey key;
 
     @PostConstruct
@@ -43,16 +46,21 @@ public class JwtUtil
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList()));
 
-        return generateToken(claims, userDetails);
+        return generateToken(claims, userDetails, jwtExpirationTime);
     }
 
-    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails)
+    public String generateRefreshToken(UserDetails userDetails)
+    {
+        return generateToken(new HashMap<>(), userDetails, jwtRefreshExpirationTime);
+    }
+
+    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails, long expiration)
     {
         return Jwts.builder()
                 .claims(extraClaims)
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + jwtExpirationTime))
+                .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(key)
                 .compact();
     }
@@ -60,6 +68,7 @@ public class JwtUtil
     public boolean isTokenValid(String token, UserDetails userDetails)
     {
         final String username = getUsernameFromToken(token);
+
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
@@ -71,6 +80,7 @@ public class JwtUtil
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver)
     {
         final Claims claims = getAllClaimsFromToken(token);
+
         return claimsResolver.apply(claims);
     }
 
