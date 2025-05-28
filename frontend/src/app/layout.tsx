@@ -7,6 +7,7 @@ import React from "react";
 import { Box } from '@mui/material';
 import { CartProvider } from "@/context/CartContext";
 import AppHeader from "@/components/AppHeader/AppHeader";
+import { AuthProvider } from "@/context/AuthContext";
 
 const roboto = Roboto({
     weight: ['300', '400', '500', '700'],
@@ -21,20 +22,22 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode; }>) =>
         <html lang="en" className={roboto.variable}>
         <body>
         <AppRouterCacheProvider>
-            <ThemeProvider theme={theme}>
-                <CartProvider>
-                    <Box
-                        sx={{
-                            backgroundColor: 'background.default',
-                            color: 'text.primary',
-                            minHeight: '100vh'
-                        }}
-                    >
-                        <AppHeader/>
-                        {children}
-                    </Box>
-                </CartProvider>
-            </ThemeProvider>
+            <AuthProvider>
+                <ThemeProvider theme={theme}>
+                    <CartProvider>
+                        <Box
+                            sx={{
+                                backgroundColor: 'background.default',
+                                color: 'text.primary',
+                                minHeight: '100vh'
+                            }}
+                        >
+                            <AppHeader/>
+                            {children}
+                        </Box>
+                    </CartProvider>
+                </ThemeProvider>
+            </AuthProvider>
         </AppRouterCacheProvider>
         </body>
         </html>

@@ -23,6 +23,8 @@ import {
 } from '@mui/icons-material';
 import { Badge, Divider, ListItemIcon, ListItemText, useColorScheme } from "@mui/material";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 const AppHeader = () =>
 {
@@ -33,6 +35,10 @@ const AppHeader = () =>
     const { mode, setMode } = useColorScheme();
 
     const { totalItems } = useCart();
+
+    const router = useRouter();
+
+    const { setAccessToken, isLoggedIn, setIsLoggedIn } = useAuth();
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) =>
     {
@@ -68,6 +74,26 @@ const AppHeader = () =>
     {
         setMode(value);
         handleCloseThemeMenu();
+    };
+
+    const handleLogout = async () =>
+    {
+        const response = await fetch('/api/auth/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok)
+        {
+            console.error('Greška prilikom odjave:', await response.text());
+        }
+
+        setIsLoggedIn(false);
+        setAccessToken('');
+        handleCloseUserMenu();
+        router.push('/');
     };
 
     return (
@@ -119,21 +145,23 @@ const AppHeader = () =>
                             onClose={handleCloseNavMenu}
                             sx={{ display: { xs: 'block', md: 'none' } }}
                         >
-                            <MenuItem key="Prijava" component="a" href="/prijava" onClick={handleCloseNavMenu}>
-                                <ListItemIcon>
-                                    <Person/>
-                                </ListItemIcon>
-                                <ListItemText primary="Prijava"/>
-                            </MenuItem>
-                            <Divider/>
-                            <MenuItem key="Registracija" component="a" href="/registracija"
-                                      onClick={handleCloseNavMenu}>
-                                <ListItemIcon>
-                                    <Person/>
-                                </ListItemIcon>
-                                <ListItemText primary="Registracija"/>
-                            </MenuItem>
-                            <Divider/>
+                            {!isLoggedIn && [
+                                <MenuItem key="Prijava" component="a" href="/prijava" onClick={handleCloseNavMenu}>
+                                    <ListItemIcon>
+                                        <Person/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Prijava"/>
+                                </MenuItem>,
+                                <Divider key="divider-1"/>,
+                                <MenuItem key="Registracija" component="a" href="/registracija"
+                                          onClick={handleCloseNavMenu}>
+                                    <ListItemIcon>
+                                        <Person/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Registracija"/>
+                                </MenuItem>,
+                                <Divider key="divider-2"/>
+                            ]}
                             <MenuItem key="Korpa" component="a" href="/korpa" onClick={handleCloseNavMenu}>
                                 <ListItemIcon>
                                     <ShoppingCart/>
@@ -206,27 +234,32 @@ const AppHeader = () =>
                     >
                         Knjižara
                     </Typography>
+
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <Button
-                            key="Prijava"
-                            component="a"
-                            href="/prijava"
-                            onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white' }}
-                            startIcon={<Person/>}
-                        >
-                            Prijava
-                        </Button>
-                        <Button
-                            key="Registracija"
-                            component="a"
-                            href="/registracija"
-                            onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white' }}
-                            startIcon={<Person/>}
-                        >
-                            Registracija
-                        </Button>
+                        {!isLoggedIn && (
+                            <>
+                                <Button
+                                    key="Prijava"
+                                    component="a"
+                                    href="/prijava"
+                                    onClick={handleCloseNavMenu}
+                                    sx={{ my: 2, color: 'white' }}
+                                    startIcon={<Person/>}
+                                >
+                                    Prijava
+                                </Button>
+                                <Button
+                                    key="Registracija"
+                                    component="a"
+                                    href="/registracija"
+                                    onClick={handleCloseNavMenu}
+                                    sx={{ my: 2, color: 'white' }}
+                                    startIcon={<Person/>}
+                                >
+                                    Registracija
+                                </Button>
+                            </>
+                        )}
                         <Button
                             key="Korpa"
                             component="a"
@@ -308,54 +341,56 @@ const AppHeader = () =>
                             </MenuItem>
                         </Menu>
                     </Box>
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Button
-                            key="Profil"
-                            onClick={handleOpenUserMenu}
-                            sx={{ my: 2, color: 'white' }}
-                            startIcon={<Person/>}
-                            endIcon={<ExpandMore/>}
-                        >
-                            Profil
-                        </Button>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={userMenuAnchorEl}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(userMenuAnchorEl)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            <MenuItem key="Profil" onClick={handleCloseUserMenu}>
-                                <ListItemIcon>
-                                    <Person/>
-                                </ListItemIcon>
-                                <ListItemText primary="Profil"/>
-                            </MenuItem>
-                            <Divider/>
-                            <MenuItem key="Narudžbine" onClick={handleCloseUserMenu}>
-                                <ListItemIcon>
-                                    <Assignment/>
-                                </ListItemIcon>
-                                <ListItemText primary="Narudžbine"/>
-                            </MenuItem>
-                            <Divider/>
-                            <MenuItem key="Odajava" onClick={handleCloseUserMenu}>
-                                <ListItemIcon>
-                                    <Logout/>
-                                </ListItemIcon>
-                                <ListItemText primary="Odajava"/>
-                            </MenuItem>
-                        </Menu>
-                    </Box>
+                    {isLoggedIn && (
+                        <Box sx={{ flexGrow: 0 }}>
+                            <Button
+                                key="Profil"
+                                onClick={handleOpenUserMenu}
+                                sx={{ my: 2, color: 'white' }}
+                                startIcon={<Person/>}
+                                endIcon={<ExpandMore/>}
+                            >
+                                Profil
+                            </Button>
+                            <Menu
+                                sx={{ mt: '45px' }}
+                                id="menu-appbar"
+                                anchorEl={userMenuAnchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(userMenuAnchorEl)}
+                                onClose={handleCloseUserMenu}
+                            >
+                                <MenuItem key="Profil" onClick={handleCloseUserMenu}>
+                                    <ListItemIcon>
+                                        <Person/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Profil"/>
+                                </MenuItem>
+                                <Divider/>
+                                <MenuItem key="Narudžbine" onClick={handleCloseUserMenu}>
+                                    <ListItemIcon>
+                                        <Assignment/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Narudžbine"/>
+                                </MenuItem>
+                                <Divider/>
+                                <MenuItem key="Odjava" onClick={handleLogout}>
+                                    <ListItemIcon>
+                                        <Logout/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Odjava"/>
+                                </MenuItem>
+                            </Menu>
+                        </Box>
+                    )}
                 </Toolbar>
             </Container>
         </AppBar>

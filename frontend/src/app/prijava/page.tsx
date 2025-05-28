@@ -1,11 +1,10 @@
 'use client';
 
-import { Box, Button, Container, InputAdornment, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Container, InputAdornment, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import AppHeader from "@/components/AppHeader/AppHeader";
 import { Lock, Login, Person } from "@mui/icons-material";
-import api from "@/utils/axios";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage()
 {
@@ -16,37 +15,43 @@ export default function LoginPage()
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 
+    const { setAccessToken, setIsLoggedIn } = useAuth();
+
     const handleSubmit = async (e: React.FormEvent) =>
     {
         e.preventDefault();
         setErrors({});
         setLoading(true);
 
-        try
+        const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ identifier, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok)
         {
-            const response = await api.post('/auth/login', {
-                identifier,
-                password,
-            });
-            const { token, tokenType } = response.data;
-            localStorage.setItem('token', `${tokenType} ${token}`);
+            const { accessToken } = data;
+
+            setIsLoggedIn(true);
+            setAccessToken(accessToken);
             router.push('/');
         }
-        catch (err: any)
+        else
         {
-            if (err.response?.data)
+            if (data)
             {
-                setErrors(err.response.data);
+                setErrors(data);
             }
             else
             {
                 setErrors({ global: 'Neuspešna prijava. Proverite podatke.' });
             }
         }
-        finally
-        {
-            setLoading(false);
-        }
+
+        setLoading(false);
     };
 
     return (
@@ -54,6 +59,11 @@ export default function LoginPage()
             <Typography variant="h4" gutterBottom textAlign="center">
                 Prijava
             </Typography>
+            {errors.global && (
+                <Box mb={2}>
+                    <Alert severity="error">{errors.global}</Alert>
+                </Box>
+            )}
             <Box component="form" onSubmit={handleSubmit}>
                 <TextField
                     fullWidth
@@ -89,8 +99,8 @@ export default function LoginPage()
                             ),
                         },
                     }}
-                    error={!!errors.identifier}
-                    helperText={errors.identifier}
+                    error={!!errors.password}
+                    helperText={errors.password}
                 />
                 <Button
                     type="submit"
