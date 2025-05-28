@@ -1,12 +1,11 @@
 'use client';
 
-import { Box, Button, Container, InputAdornment, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Container, InputAdornment, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Email, LocationOn, Lock, Person, PersonAdd, Phone } from "@mui/icons-material";
 import api from "@/utils/axios";
 import axios from "axios";
-import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 
 export default function RegisterPage()
 {
@@ -65,16 +64,16 @@ export default function RegisterPage()
         }
     };
 
-    if (errors.global)
-    {
-        return <ErrorMessage message={errors.global}/>;
-    }
-
     return (
         <Container maxWidth="sm" sx={{ mt: 8 }}>
             <Typography variant="h4" gutterBottom textAlign="center">
                 Registracija
             </Typography>
+            {errors.global && (
+                <Box mb={2}>
+                    <Alert severity="error">{errors.global}</Alert>
+                </Box>
+            )}
             <Box component="form" onSubmit={handleSubmit}>
                 <TextField
                     fullWidth
