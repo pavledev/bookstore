@@ -1,3 +1,5 @@
+'use client';
+
 import React, { memo, useState, useMemo } from 'react';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import { Checkbox, FormControlLabel, InputAdornment, TextField } from '@mui/material';
