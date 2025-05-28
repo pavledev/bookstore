@@ -2,7 +2,8 @@ import { Box, IconButton, Typography } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 
-interface QuantitySelectorProps {
+interface QuantitySelectorProps
+{
     value: number;
     min?: number;
     max?: number;
@@ -14,12 +15,15 @@ export default function QuantitySelector({
                                              min = 1,
                                              max = 99,
                                              onChange,
-                                         }: QuantitySelectorProps) {
-    const handleDecrement = () => {
+                                         }: QuantitySelectorProps)
+{
+    const handleDecrement = () =>
+    {
         if (value > min) onChange(value - 1);
     };
 
-    const handleIncrement = () => {
+    const handleIncrement = () =>
+    {
         if (value < max) onChange(value + 1);
     };
 
@@ -35,7 +39,7 @@ export default function QuantitySelector({
             width="fit-content"
         >
             <IconButton size="small" onClick={handleDecrement} disabled={value <= min}>
-                <RemoveIcon fontSize="small" color="primary" />
+                <RemoveIcon fontSize="small" color="primary"/>
             </IconButton>
 
             <Typography mx={2} fontSize="1.2rem">
@@ -43,7 +47,7 @@ export default function QuantitySelector({
             </Typography>
 
             <IconButton size="small" onClick={handleIncrement} disabled={value >= max}>
-                <AddIcon fontSize="small" color="primary" />
+                <AddIcon fontSize="small" color="primary"/>
             </IconButton>
         </Box>
     );
