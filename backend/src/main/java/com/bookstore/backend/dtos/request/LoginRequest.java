@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class LoginRequest
 {
-    @NotBlank(message = "Korisničko ime ili email je obavezno")
+    @NotBlank(message = "Korisničko ime ili email adresa je obavezna")
     private String identifier;
 
     @NotBlank(message = "Lozinka je obevezna")
