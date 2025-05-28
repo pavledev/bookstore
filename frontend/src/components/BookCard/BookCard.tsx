@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import {
     Box, Button, Card, CardContent, CardMedia, Link, Typography,

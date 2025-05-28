@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import AppHeader from '@/components/AppHeader/AppHeader';
 import { Box, Tab, Tabs } from '@mui/material';
