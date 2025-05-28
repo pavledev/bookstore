@@ -48,16 +48,6 @@ public class AuthService implements IAuthService
     @Override
     public ResponseEntity<?> register(@Valid RegisterRequest request)
     {
-        if (userRepository.existsByUsername(request.getUsername()))
-        {
-            return ResponseEntity.badRequest().body(Map.of("username", "Korisničko ime je zauzeto"));
-        }
-
-        if (userRepository.existsByEmail(request.getEmail()))
-        {
-            return ResponseEntity.badRequest().body(Map.of("email", "Email adresa je već u upotrebi"));
-        }
-
         Role userRole = roleRepository.findByName("ROLE_USER")
                 .orElseThrow(() -> new RuntimeException("Default role not found"));
 
