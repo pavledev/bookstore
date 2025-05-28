@@ -1,6 +1,5 @@
 'use client';
 
-import AppHeader from '@/components/AppHeader/AppHeader';
 import { Box, Tab, Tabs } from '@mui/material';
 import React from 'react';
 import Books from "@/components/Books/Books";
