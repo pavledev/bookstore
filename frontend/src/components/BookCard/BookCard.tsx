@@ -10,6 +10,8 @@ import * as React from "react";
 import { useCart } from '@/context/CartContext';
 import { useState } from "react";
 import SnackbarNotifier from "@/components/SnackbarNotifier/SnackbarNotifier";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 interface BookCardProps
 {
@@ -28,6 +30,11 @@ const BookCard = (bookCardProps: BookCardProps) =>
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const { dispatch } = useCart();
+
+    const router = useRouter();
+
+    const { accessToken } = useAuth();
+    const isLoggedIn = !!accessToken;
 
     const calculateDiscountPercentage = (originalPrice: number, discountPrice: number): number =>
     {
@@ -48,6 +55,13 @@ const BookCard = (bookCardProps: BookCardProps) =>
 
     const handleAddToCart = () =>
     {
+        if (!isLoggedIn)
+        {
+            router.push('/prijava');
+
+            return;
+        }
+
         dispatch({ type: 'ADD', payload: bookCardProps.bookId });
         setSnackbarOpen(true);
     };

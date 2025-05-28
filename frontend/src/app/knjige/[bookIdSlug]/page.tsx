@@ -17,13 +17,14 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import api from "@/utils/axios";
 import { Book } from "@/types/book";
 import { MenuBook } from "@mui/icons-material";
 import Loading from "@/components/Loading/Loading";
 import { useCart } from '@/context/CartContext';
 import SnackbarNotifier from '@/components/SnackbarNotifier/SnackbarNotifier';
+import { useAuth } from "@/context/AuthContext";
 
 const BookDetailsPage = () =>
 {
@@ -33,6 +34,11 @@ const BookDetailsPage = () =>
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const { dispatch } = useCart();
+
+    const router = useRouter();
+
+    const { accessToken } = useAuth();
+    const isLoggedIn = !!accessToken;
 
     useEffect(() =>
     {
@@ -57,6 +63,13 @@ const BookDetailsPage = () =>
 
     const handleAddToCart = () =>
     {
+        if (!isLoggedIn)
+        {
+            router.push('/prijava');
+
+            return;
+        }
+
         if (book == null)
         {
             return;
