@@ -20,7 +20,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import api from "@/utils/axios";
 import { Book } from "@/types/book";
-import AppHeader from "@/components/AppHeader/AppHeader";
 import { MenuBook } from "@mui/icons-material";
 import Loading from "@/components/Loading/Loading";
 import { useCart } from '@/context/CartContext';
