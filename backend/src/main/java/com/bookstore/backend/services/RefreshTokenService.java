@@ -3,7 +3,6 @@ package com.bookstore.backend.services;
 import com.bookstore.backend.entities.RefreshToken;
 import com.bookstore.backend.entities.User;
 import com.bookstore.backend.repositories.IRefreshTokenRepository;
-import com.bookstore.backend.repositories.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
 public class RefreshTokenService implements IRefreshTokenService
 {
     private final IRefreshTokenRepository refreshTokenRepository;
-    private final IUserRepository userRepository;
 
     @Value("${security.jwt.refresh-expiration-time}")
     private long refreshTokenDurationMs;
