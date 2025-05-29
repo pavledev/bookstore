@@ -5,7 +5,7 @@ import com.bookstore.backend.entities.User;
 
 public interface IRefreshTokenService
 {
-    RefreshToken createRefreshToken(User user, String rawToken);
+    void createRefreshToken(User user, String rawToken);
 
     boolean isValid(String token);
 

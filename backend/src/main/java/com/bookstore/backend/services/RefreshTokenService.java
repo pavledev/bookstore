@@ -19,7 +19,7 @@ public class RefreshTokenService implements IRefreshTokenService
     @Value("${security.jwt.refresh-expiration-time}")
     private long refreshTokenDurationMs;
 
-    public RefreshToken createRefreshToken(User user, String rawToken)
+    public void createRefreshToken(User user, String rawToken)
     {
         RefreshToken token = new RefreshToken();
 
@@ -28,7 +28,7 @@ public class RefreshTokenService implements IRefreshTokenService
         token.setCreatedAt(LocalDateTime.now());
         token.setExpiresAt(LocalDateTime.now().plus(Duration.ofMillis(refreshTokenDurationMs)));
 
-        return refreshTokenRepository.save(token);
+        refreshTokenRepository.save(token);
     }
 
     public boolean isValid(String token)
