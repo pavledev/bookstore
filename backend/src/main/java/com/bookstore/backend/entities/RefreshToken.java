@@ -22,10 +22,12 @@ public class RefreshToken
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    @Column(name = "expires_at")
     private LocalDateTime expiresAt;
 
+    @Column(name = "is_revoked", nullable = false)
     private boolean isRevoked = false;
 }
