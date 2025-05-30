@@ -134,7 +134,7 @@ const BookDetailsPage = () =>
                         </Box>
 
                         <Typography variant="body2" color="text.secondary" gutterBottom>
-                            {book.publisherName}
+                            {book.publisher.name}
                         </Typography>
 
                         <Box mt={3}>
