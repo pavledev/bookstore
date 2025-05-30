@@ -1,12 +1,12 @@
 import { Author } from "@/types/author";
 import { Genre } from "@/types/genre";
+import { Publisher } from "@/types/publisher";
 
 export interface Book
 {
     bookId: number;
     categoryId: number;
-    publisherId: number;
-    publisherName: string;
+    publisher: Publisher;
 
     title: string;
     mediumImagePath: string;
