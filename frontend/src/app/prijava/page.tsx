@@ -3,8 +3,9 @@
 import { Alert, Box, Button, Container, InputAdornment, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Lock, Login, Person } from "@mui/icons-material";
+import { Lock, Login, Person, Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAuth } from "@/context/AuthContext";
+import IconButton from "@mui/material/IconButton";
 
 export default function LoginPage()
 {
@@ -16,6 +17,10 @@ export default function LoginPage()
     const router = useRouter();
 
     const { setAccessToken, setIsLoggedIn } = useAuth();
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const handleSubmit = async (e: React.FormEvent) =>
     {
@@ -86,7 +91,7 @@ export default function LoginPage()
                 <TextField
                     fullWidth
                     label="Lozinka"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     margin="normal"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -97,6 +102,19 @@ export default function LoginPage()
                                     <Lock/>
                                 </InputAdornment>
                             ),
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label={
+                                            showPassword ? 'hide the password' : 'display the password'
+                                        }
+                                        onClick={handleClickShowPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <Visibility/> : <VisibilityOff/>}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
                         },
                     }}
                     error={!!errors.password}

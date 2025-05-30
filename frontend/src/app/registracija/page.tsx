@@ -3,9 +3,10 @@
 import { Alert, Box, Button, Container, InputAdornment, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Email, LocationOn, Lock, Person, PersonAdd, Phone } from "@mui/icons-material";
+import { Email, LocationOn, Lock, Person, PersonAdd, Phone, Visibility, VisibilityOff } from "@mui/icons-material";
 import api from "@/utils/axios";
 import axios from "axios";
+import IconButton from "@mui/material/IconButton";
 
 export default function RegisterPage()
 {
@@ -23,6 +24,13 @@ export default function RegisterPage()
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
 
     const handleSubmit = async (e: React.FormEvent) =>
     {
@@ -151,7 +159,7 @@ export default function RegisterPage()
                 <TextField
                     fullWidth
                     label="Lozinka"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     margin="normal"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -162,7 +170,20 @@ export default function RegisterPage()
                                     <Lock/>
                                 </InputAdornment>
                             ),
-                        },
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label={
+                                            showPassword ? 'hide the password' : 'display the password'
+                                        }
+                                        onClick={handleClickShowPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <Visibility/> : <VisibilityOff/>}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }
                     }}
                     error={!!errors.password}
                     helperText={errors.password}
@@ -170,7 +191,7 @@ export default function RegisterPage()
                 <TextField
                     fullWidth
                     label="Potvrda lozinke"
-                    type="password"
+                    type={showConfirmPassword ? 'text' : 'password'}
                     margin="normal"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -181,7 +202,20 @@ export default function RegisterPage()
                                     <Lock/>
                                 </InputAdornment>
                             ),
-                        },
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label={
+                                            showConfirmPassword ? 'hide the password' : 'display the password'
+                                        }
+                                        onClick={handleClickShowConfirmPassword}
+                                        edge="end"
+                                    >
+                                        {showConfirmPassword ? <Visibility/> : <VisibilityOff/>}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }
                     }}
                     error={!!errors.confirmPassword}
                     helperText={errors.confirmPassword}
