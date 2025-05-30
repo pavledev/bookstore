@@ -98,7 +98,7 @@ const Books = ({ categoryId }: BooksProps) =>
                     page,
                     genreIds: selectedGenres,
                     publisherIds: selectedPublishers,
-                    authorIds: selectedAuthors,
+                    authorIds: selectedAuthors
                 });
 
                 setBooks(response.data.content);
