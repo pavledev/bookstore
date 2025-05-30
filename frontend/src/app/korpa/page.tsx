@@ -47,7 +47,7 @@ export default function CartPage()
                 const merged: CartItem[] = cart.map(entry =>
                 {
                     const book = response.data.find(b => b.bookId === entry.bookId);
-                    
+
                     return book ? { ...book, selectedQuantity: entry.selectedQuantity } : null;
                 }).filter(Boolean) as CartItem[];
 
