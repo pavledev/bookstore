@@ -8,7 +8,7 @@ import api from "@/utils/axios";
 import axios from "axios";
 import IconButton from "@mui/material/IconButton";
 
-export default function RegisterPage()
+const RegisterPage = () =>
 {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -306,4 +306,6 @@ export default function RegisterPage()
             </Box>
         </Container>
     );
-}
+};
+
+export default RegisterPage;

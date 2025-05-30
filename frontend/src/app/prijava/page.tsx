@@ -7,7 +7,7 @@ import { Lock, Login, Person, Visibility, VisibilityOff } from "@mui/icons-mater
 import { useAuth } from "@/context/AuthContext";
 import IconButton from "@mui/material/IconButton";
 
-export default function LoginPage()
+const LoginPage = () =>
 {
     const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');
@@ -134,4 +134,6 @@ export default function LoginPage()
             </Box>
         </Container>
     );
-}
+};
+
+export default LoginPage;

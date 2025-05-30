@@ -50,7 +50,7 @@ interface Order
     orderItems: OrderItem[];
 }
 
-export default function OrdersPage()
+const OrdersPage = () =>
 {
     const api = useApi();
     const [orders, setOrders] = useState<Order[]>([]);
@@ -311,4 +311,6 @@ export default function OrdersPage()
             />
         </>
     );
-}
+};
+
+export default OrdersPage;

@@ -26,7 +26,7 @@ interface CartItem extends Book
     selectedQuantity: number;
 }
 
-export default function CartPage()
+const CartPage = () =>
 {
     const { cart, dispatch } = useCart();
     const [items, setItems] = useState<CartItem[]>([]);
@@ -269,4 +269,6 @@ export default function CartPage()
             />
         </>
     );
-}
+};
+
+export default CartPage;
