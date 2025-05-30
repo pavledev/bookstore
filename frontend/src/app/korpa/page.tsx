@@ -35,6 +35,7 @@ export default function CartPage()
             if (cart.length === 0)
             {
                 setItems([]);
+
                 return;
             }
 
