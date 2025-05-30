@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import {
-    Box, Button,
-    Card,
+    Box, Card,
     CardContent,
     CircularProgress,
     Container,
@@ -18,7 +17,6 @@ import {
 import useApi from '@/hooks/useApi';
 import Image from 'next/image';
 import { useAuth } from "@/context/AuthContext";
-import { cookies } from "next/headers";
 import { Search } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteConfirmationDialog from "@/components/DeleteConfirmationDialog/DeleteConfirmationDialog";
