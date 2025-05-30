@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("books")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class BookController
 {
     private final IBookService bookService;

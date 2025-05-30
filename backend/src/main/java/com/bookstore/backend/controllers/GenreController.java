@@ -10,7 +10,6 @@ import java.util.List;
 @RestController
 @RequestMapping("genres")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class GenreController
 {
     private final IGenreService genreService;

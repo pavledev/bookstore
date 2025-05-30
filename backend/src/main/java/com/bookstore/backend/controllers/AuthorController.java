@@ -10,7 +10,6 @@ import java.util.List;
 @RestController
 @RequestMapping("authors")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class AuthorController
 {
     private final IAuthorService authorService;

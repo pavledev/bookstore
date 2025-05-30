@@ -10,7 +10,6 @@ import java.util.List;
 @RestController
 @RequestMapping("publishers")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class PublisherController
 {
     private final IPublisherService publisherService;
