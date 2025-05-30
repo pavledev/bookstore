@@ -4,13 +4,9 @@ import com.bookstore.backend.entities.Book;
 import com.bookstore.backend.models.BookModel;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring", uses = {AuthorMapper.class, GenreMapper.class})
+@Mapper(componentModel = "spring", uses = {PublisherMapper.class, AuthorMapper.class, GenreMapper.class})
 public interface BookMapper extends IBaseMapper<Book, BookModel>
 {
-    @Mapping(target = "publisherName", source = "publisher.name")
-    @Override
-    BookModel toModel(Book book);
-
     @Mapping(target = "publisher", ignore = true)
     @Mapping(target = "authors", ignore = true)
     @Mapping(target = "genres", ignore = true)

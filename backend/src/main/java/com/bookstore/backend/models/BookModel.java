@@ -11,8 +11,7 @@ public class BookModel
 {
     private Integer bookId;
     private Integer categoryId;
-    private Integer publisherId;
-    private String publisherName;
+    private PublisherModel publisher;
 
     private String title;
     private String mediumImagePath;
