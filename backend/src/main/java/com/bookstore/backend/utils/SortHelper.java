@@ -14,6 +14,7 @@ public class SortHelper
             case "title_desc" -> Sort.by(Sort.Direction.DESC, "title");
             case "price_asc" -> Sort.by(Sort.Direction.ASC, "price");
             case "price_desc" -> Sort.by(Sort.Direction.DESC, "price");
+            case "created_asc" -> Sort.by(Sort.Direction.ASC, "createdAt");
             case "created_desc" -> Sort.by(Sort.Direction.DESC, "createdAt");
             default -> Sort.unsorted();
         };
