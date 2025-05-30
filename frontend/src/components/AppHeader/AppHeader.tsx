@@ -375,7 +375,8 @@ const AppHeader = () =>
                                     <ListItemText primary="Profil"/>
                                 </MenuItem>
                                 <Divider/>
-                                <MenuItem key="Narudžbine" onClick={handleCloseUserMenu}>
+                                <MenuItem key="Narudžbine" component="a" href="/korisnik/narudzbine"
+                                          onClick={handleCloseUserMenu}>
                                     <ListItemIcon>
                                         <Assignment/>
                                     </ListItemIcon>
