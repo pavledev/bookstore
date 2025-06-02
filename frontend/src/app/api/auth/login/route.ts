@@ -33,7 +33,7 @@ export const POST = async (req: Request) =>
             maxAge: 60 * 60 * 24 * 7
         });
 
-        return NextResponse.json({ success: true });
+        return NextResponse.json({ accessToken });
     }
     catch (error: unknown)
     {
