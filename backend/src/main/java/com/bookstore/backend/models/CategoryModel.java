@@ -9,5 +9,4 @@ public class CategoryModel
 {
     private Integer categoryId;
     private String name;
-    private String description;
 }
