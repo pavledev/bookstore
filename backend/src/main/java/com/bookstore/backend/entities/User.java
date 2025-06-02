@@ -42,6 +42,9 @@ public class User
     @Column(name = "street_number", nullable = false)
     private String streetNumber;
 
+    @Column(name = "is_deleted", nullable = false)
+    private boolean isDeleted = false;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
