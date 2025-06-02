@@ -43,7 +43,7 @@ public class OrderController
     {
         orderService.createOrder(createOrderRequest);
 
-        return ResponseEntity.ok(Map.of("message", "Porudžbina je uspešno kreirana."));
+        return ResponseEntity.ok(Map.of("message", "Narudžbina je uspešno kreirana."));
     }
 
     @DeleteMapping("/{id}")
@@ -51,6 +51,6 @@ public class OrderController
     {
         orderService.deleteOrder(id);
 
-        return ResponseEntity.ok(Map.of("message", "Porudžbina je uspešno obrisana."));
+        return ResponseEntity.ok(Map.of("message", "Narudžbina je uspešno obrisana."));
     }
 }
