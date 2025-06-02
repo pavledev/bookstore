@@ -3,27 +3,7 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import React from 'react';
 import Books from "@/components/Books/Books";
-
-interface TabPanelProps
-{
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-}
-
-function CustomTabPanel(props: TabPanelProps)
-{
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            hidden={value !== index}
-            {...other}
-        >
-            {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-        </div>
-    );
-}
+import CustomTabPanel from "@/components/CustomTabPanel/CustomTabPanel";
 
 const HomePage = () =>
 {
