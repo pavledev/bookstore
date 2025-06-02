@@ -6,6 +6,8 @@ import com.bookstore.backend.validators.UniqueUsername;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+@UniqueEmail
+@UniqueUsername
 @PasswordMatches
 @Data
 public class RegisterRequest
@@ -20,12 +22,10 @@ public class RegisterRequest
 
     @NotBlank(message = "Email je obavezan")
     @Email(message = "Format email adrese nije validan")
-    @UniqueEmail
     private String email;
 
     @NotBlank(message = "Korisničko ime je obavezno")
     @Size(min = 6, message = "Korisničko ime mora imati najmanje 6 karaktera")
-    @UniqueUsername
     private String username;
 
     @NotBlank(message = "Lozinka je obavezna")
