@@ -37,8 +37,7 @@ const BookDetailsPage = () =>
 
     const router = useRouter();
 
-    const { accessToken } = useAuth();
-    const isLoggedIn = !!accessToken;
+    const { isLoggedIn } = useAuth();
 
     useEffect(() =>
     {
@@ -91,7 +90,7 @@ const BookDetailsPage = () =>
                     <Grid size={{ xs: 12, md: 3 }}>
                         <Box position="relative">
                             <Image
-                                src={"https://delfi.rs" + book.largeImagePath}
+                                src={`https://delfi.rs${book.largeImagePath}`}
                                 alt=".NET 8 alati i veštine"
                                 width={400}
                                 height={500}
