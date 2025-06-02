@@ -92,4 +92,7 @@ public class Book
 
     @Column(name = "discount_price", nullable = false)
     private Double discountPrice;
+
+    @Column(name = "is_deleted", nullable = false)
+    private boolean isDeleted = false;
 }
