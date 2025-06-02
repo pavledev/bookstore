@@ -106,7 +106,7 @@ const LoginPage = () =>
                                 <InputAdornment position="end">
                                     <IconButton
                                         aria-label={
-                                            showPassword ? 'hide the password' : 'display the password'
+                                            showPassword ? 'Sakrij lozinku' : 'Prikaži lozinku'
                                         }
                                         onClick={handleClickShowPassword}
                                         edge="end"

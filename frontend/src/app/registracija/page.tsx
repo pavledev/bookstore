@@ -174,7 +174,7 @@ const RegisterPage = () =>
                                 <InputAdornment position="end">
                                     <IconButton
                                         aria-label={
-                                            showPassword ? 'hide the password' : 'display the password'
+                                            showPassword ? 'Sakrij lozinku' : 'Prikaži lozinku'
                                         }
                                         onClick={handleClickShowPassword}
                                         edge="end"
@@ -206,7 +206,7 @@ const RegisterPage = () =>
                                 <InputAdornment position="end">
                                     <IconButton
                                         aria-label={
-                                            showConfirmPassword ? 'hide the password' : 'display the password'
+                                            showConfirmPassword ? 'Sakrij lozinku' : 'Prikaži lozinku'
                                         }
                                         onClick={handleClickShowConfirmPassword}
                                         edge="end"
