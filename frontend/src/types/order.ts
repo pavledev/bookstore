@@ -1,6 +1,6 @@
 import { OrderItem } from "@/types/orderItem";
 
-export interface OrderModel
+export interface Order
 {
     orderId: number;
     totalAmount: number;
