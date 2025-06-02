@@ -368,7 +368,8 @@ const AppHeader = () =>
                                 open={Boolean(userMenuAnchorEl)}
                                 onClose={handleCloseUserMenu}
                             >
-                                <MenuItem key="Profil" onClick={handleCloseUserMenu}>
+                                <MenuItem key="Profil" component="a" href="/korisnik/profil"
+                                          onClick={handleCloseUserMenu}>
                                     <ListItemIcon>
                                         <Person/>
                                     </ListItemIcon>
