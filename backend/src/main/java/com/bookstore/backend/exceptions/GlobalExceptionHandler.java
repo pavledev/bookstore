@@ -39,4 +39,11 @@ public class GlobalExceptionHandler
 
         return errors;
     }
+
+    @ExceptionHandler(InvalidTokenException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public Map<String, String> handleInvalidToken(InvalidTokenException ex)
+    {
+        return Map.of("error", ex.getMessage());
+    }
 }
