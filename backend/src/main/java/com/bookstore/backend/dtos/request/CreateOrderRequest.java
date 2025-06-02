@@ -5,8 +5,8 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class OrderRequest
+public class CreateOrderRequest
 {
     private Double totalAmount;
-    private List<OrderItemRequest> orderItems;
+    private List<CreateOrderItemRequest> orderItems;
 }

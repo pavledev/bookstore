@@ -3,7 +3,7 @@ package com.bookstore.backend.dtos.request;
 import lombok.Data;
 
 @Data
-public class OrderItemRequest
+public class CreateOrderItemRequest
 {
     private Integer bookId;
     private Integer quantity;
