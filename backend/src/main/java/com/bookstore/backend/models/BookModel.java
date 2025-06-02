@@ -10,7 +10,7 @@ import java.util.List;
 public class BookModel
 {
     private Integer bookId;
-    private Integer categoryId;
+    private CategoryModel category;
     private PublisherModel publisher;
 
     private String title;
