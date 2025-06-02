@@ -1,11 +1,12 @@
 import { Author } from "@/types/author";
 import { Genre } from "@/types/genre";
 import { Publisher } from "@/types/publisher";
+import { Category } from "@/types/category";
 
 export interface Book
 {
     bookId: number;
-    categoryId: number;
+    category: Category;
     publisher: Publisher;
 
     title: string;
