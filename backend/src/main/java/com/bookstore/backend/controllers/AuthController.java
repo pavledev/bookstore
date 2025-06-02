@@ -8,6 +8,7 @@ import com.bookstore.backend.services.IAuthService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,24 +24,32 @@ public class AuthController
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request)
     {
-        return authService.login(request);
+        TokenResponse tokenResponse = authService.login(request);
+
+        return ResponseEntity.ok(tokenResponse);
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request)
     {
-        return authService.register(request);
+        authService.register(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/refresh")
     public ResponseEntity<?> refresh(@RequestBody RefreshTokenRequest request)
     {
-        return authService.refresh(request.getRefreshToken());
+        TokenResponse response = authService.refresh(request.getRefreshToken());
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestBody RefreshTokenRequest request)
     {
-        return authService.logout(request.getRefreshToken());
+        authService.logout(request.getRefreshToken());
+
+        return ResponseEntity.ok(Map.of("message", "Logged out."));
     }
 }
