@@ -1,15 +1,21 @@
 package com.bookstore.backend.controllers;
 
 import com.bookstore.backend.dtos.request.BookFilterRequest;
+import com.bookstore.backend.dtos.request.CreateBookRequest;
+import com.bookstore.backend.dtos.request.UpdateBookRequest;
 import com.bookstore.backend.models.BookModel;
 import com.bookstore.backend.services.IBookService;
 import com.bookstore.backend.utils.SortHelper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("books")
@@ -48,5 +54,35 @@ public class BookController
     public List<BookModel> getBooksByIds(@RequestBody List<Integer> ids)
     {
         return bookService.getBooksByIds(ids);
+    }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> createBookByAdmin(@Valid @RequestBody CreateBookRequest createBookRequest)
+    {
+        bookService.createBook(createBookRequest);
+
+        return ResponseEntity.ok(Map.of("message", "Knjiga je uspešno kreirana."));
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> updateBook(
+            @PathVariable Integer id,
+            @Valid @RequestBody UpdateBookRequest updateBookRequest
+    )
+    {
+        bookService.updateBook(id, updateBookRequest);
+
+        return ResponseEntity.ok(Map.of("message", "Knjiga je uspešno ažurirana."));
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> deleteBook(@PathVariable Integer id)
+    {
+        bookService.deleteBook(id);
+
+        return ResponseEntity.ok(Map.of("message", "Knjiga je uspešno obrisana."));
     }
 }
