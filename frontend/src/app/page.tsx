@@ -1,13 +1,13 @@
 'use client';
 
 import { Box, Tab, Tabs } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import Books from "@/components/Books/Books";
 import CustomTabPanel from "@/components/CustomTabPanel/CustomTabPanel";
 
 const HomePage = () =>
 {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) =>
     {
@@ -17,7 +17,7 @@ const HomePage = () =>
     return (
         <>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
+                <Tabs value={value} onChange={handleChange} centered>
                     <Tab label="Domaće knjige"/>
                     <Tab label="Strane knjige"/>
                 </Tabs>
