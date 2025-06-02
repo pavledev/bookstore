@@ -34,7 +34,7 @@ const Books = ({ categoryId }: BooksProps) =>
     const [selectedPublishers, setSelectedPublishers] = useState<number[]>([]);
     const [selectedAuthors, setSelectedAuthors] = useState<number[]>([]);
 
-    const [books, setBooks] = useState([]);
+    const [books, setBooks] = useState<Book[]>([]);
     const [totalPages, setTotalPages] = useState(1);
     const [areFiltersLoading, setAreFiltersLoading] = useState(false);
     const [areBooksLoading, setAreBooksLoading] = useState(false);
