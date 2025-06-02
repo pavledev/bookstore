@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import {
     Box, Card,
     CardContent,
-    CircularProgress,
     Container,
     Divider,
     FormControl,
@@ -17,45 +16,18 @@ import {
 import useApi from '@/hooks/useApi';
 import Image from 'next/image';
 import { useAuth } from "@/context/AuthContext";
-import { Search } from "@mui/icons-material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Delete, Search } from "@mui/icons-material";
 import DeleteConfirmationDialog from "@/components/DeleteConfirmationDialog/DeleteConfirmationDialog";
 import SnackbarNotifier from "@/components/SnackbarNotifier/SnackbarNotifier";
-
-interface Author
-{
-    fullName: string;
-}
-
-interface Book
-{
-    bookId: number;
-    title: string;
-    mediumImagePath: string;
-    authors: Author[];
-}
-
-interface OrderItem
-{
-    book: Book;
-    quantity: number;
-    unitPrice: number;
-}
-
-interface Order
-{
-    orderId: number;
-    totalAmount: number;
-    createdAt: string;
-    orderItems: OrderItem[];
-}
+import { Order } from "@/types/order";
+import Loading from "@/components/Loading/Loading";
 
 const OrdersPage = () =>
 {
     const api = useApi();
-    const [orders, setOrders] = useState<Order[]>([]);
-    const [loading, setLoading] = useState(true);
     const { isLoggedIn } = useAuth();
+    const [orders, setOrders] = useState<Order[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const [query, setQuery] = useState('');
     const [sort, setSort] = useState('created_desc');
@@ -92,7 +64,7 @@ const OrdersPage = () =>
             }
             finally
             {
-                setLoading(false);
+                setIsLoading(false);
             }
         };
 
@@ -126,9 +98,7 @@ const OrdersPage = () =>
             const response = await api.delete(`/orders/${selectedOrderId}`);
             const { message } = response.data;
 
-            setSnackbarMessage(message);
-            setSnackbarSeverity('success');
-            setSnackbarOpen(true);
+            showSnackbar(message, 'success');
 
             setOrders(prev => prev.filter(order => order.orderId !== selectedOrderId));
         }
@@ -136,15 +106,25 @@ const OrdersPage = () =>
         {
             console.error('Greška prilikom brisanja porudžbine:', err);
 
-            setSnackbarMessage('Došlo je do greške. Pokušajte ponovo.');
-            setSnackbarSeverity('error');
-            setSnackbarOpen(true);
+            showSnackbar('Došlo je do greške. Pokušajte ponovo.', 'error');
         }
         finally
         {
             closeDeleteDialog();
         }
     };
+
+    const showSnackbar = (message: string, severity: 'success' | 'error') =>
+    {
+        setSnackbarMessage(message);
+        setSnackbarSeverity(severity);
+        setSnackbarOpen(true);
+    };
+
+    if (isLoading)
+    {
+        return <Loading/>;
+    }
 
     return (
         <>
@@ -177,7 +157,7 @@ const OrdersPage = () =>
                     />
 
                     <FormControl>
-                        <InputLabel id="sort-label">Sortiranje</InputLabel>
+                        <InputLabel>Sortiranje</InputLabel>
                         <Select
                             label="Sortiraj"
                             value={sort}
@@ -211,10 +191,8 @@ const OrdersPage = () =>
                     </FormControl>
                 </Box>
 
-                {loading ? (
-                    <Box display="flex" justifyContent="center" mt={4}>
-                        <CircularProgress/>
-                    </Box>
+                {isLoading ? (
+                    <Loading/>
                 ) : orders.length === 0 ? (
                     <Typography>Nemate nijednu porudžbinu.</Typography>
                 ) : (
@@ -223,7 +201,6 @@ const OrdersPage = () =>
                             <Grid size={{ xs: 12 }} key={order.orderId}>
                                 <Card>
                                     <CardContent>
-
                                         <Box display="flex" justifyContent="space-between" alignItems="center">
                                             <Typography variant="subtitle1" fontWeight={600}>
                                                 Porudžbina #{order.orderId}
@@ -231,8 +208,9 @@ const OrdersPage = () =>
 
                                             <IconButton
                                                 onClick={() => openDeleteDialog(order.orderId)}
+                                                color="error"
                                             >
-                                                <DeleteIcon/>
+                                                <Delete/>
                                             </IconButton>
                                         </Box>
 
