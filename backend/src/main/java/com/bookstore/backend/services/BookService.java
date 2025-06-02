@@ -74,6 +74,8 @@ public class BookService implements IBookService
                     root.join("authors").get("authorId").in(filter.getAuthorIds()));
         }
 
+        spec = spec.and((root, query, cb) -> cb.isFalse(root.get("isDeleted")));
+
         Page<Book> page = bookRepository.findAll(spec, pageRequest);
 
         return bookMapper.toModelPage(page);
