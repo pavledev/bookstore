@@ -1,4 +1,4 @@
-export interface OrderItemRequest
+export interface CreateOrderItemRequest
 {
     bookId: number;
     quantity: number;
