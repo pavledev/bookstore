@@ -1,7 +1,7 @@
 package com.bookstore.backend.services;
 
 import com.bookstore.backend.dtos.request.OrderFilterRequest;
-import com.bookstore.backend.dtos.request.OrderRequest;
+import com.bookstore.backend.dtos.request.CreateOrderRequest;
 import com.bookstore.backend.models.OrderModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +13,7 @@ public interface IOrderService
 
     Page<OrderModel> filterOrders(OrderFilterRequest filter, PageRequest pageRequest);
 
-    ResponseEntity<?> createOrder(OrderRequest orderRequest);
+    void createOrder(CreateOrderRequest createOrderRequest);
 
-    ResponseEntity<?> deleteOrder(Integer orderId);
+    void deleteOrder(Integer orderId);
 }
