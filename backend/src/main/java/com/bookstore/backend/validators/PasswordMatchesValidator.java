@@ -1,15 +1,30 @@
 package com.bookstore.backend.validators;
 
+import com.bookstore.backend.dtos.request.AdminCreateUserRequest;
 import com.bookstore.backend.dtos.request.RegisterRequest;
+import com.bookstore.backend.dtos.request.UpdatePasswordRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, RegisterRequest>
+public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object>
 {
     @Override
-    public boolean isValid(RegisterRequest request, ConstraintValidatorContext context)
+    public boolean isValid(Object value, ConstraintValidatorContext context)
     {
-        boolean matches = request.getPassword().equals(request.getConfirmPassword());
+        boolean matches = false;
+
+        if (value instanceof UpdatePasswordRequest request)
+        {
+            matches = request.getPassword().equals(request.getConfirmPassword());
+        }
+        else if (value instanceof RegisterRequest request)
+        {
+            matches = request.getPassword().equals(request.getConfirmPassword());
+        }
+        else if (value instanceof AdminCreateUserRequest request)
+        {
+            matches = request.getPassword().equals(request.getConfirmPassword());
+        }
 
         if (!matches)
         {
