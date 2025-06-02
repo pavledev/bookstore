@@ -1,14 +1,12 @@
 package com.bookstore.backend.services;
 
-import com.bookstore.backend.dtos.request.BookFilterRequest;
 import com.bookstore.backend.dtos.request.OrderFilterRequest;
-import com.bookstore.backend.dtos.request.OrderRequest;
+import com.bookstore.backend.dtos.request.CreateOrderRequest;
 import com.bookstore.backend.entities.Book;
 import com.bookstore.backend.entities.Order;
 import com.bookstore.backend.entities.OrderItem;
 import com.bookstore.backend.entities.User;
 import com.bookstore.backend.mappers.OrderMapper;
-import com.bookstore.backend.models.BookModel;
 import com.bookstore.backend.models.OrderModel;
 import com.bookstore.backend.repositories.IBookRepository;
 import com.bookstore.backend.repositories.IOrderRepository;
@@ -20,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -78,7 +74,7 @@ public class OrderService implements IOrderService
     }
 
     @Override
-    public ResponseEntity<?> createOrder(OrderRequest orderRequest)
+    public void createOrder(CreateOrderRequest createOrderRequest)
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
@@ -88,10 +84,10 @@ public class OrderService implements IOrderService
         Order order = new Order();
 
         order.setUserId(user.getUserId());
-        order.setTotalAmount(orderRequest.getTotalAmount());
+        order.setTotalAmount(createOrderRequest.getTotalAmount());
         order.setCreatedAt(LocalDateTime.now());
 
-        List<OrderItem> items = orderRequest.getOrderItems().stream().map(itemModel ->
+        List<OrderItem> items = createOrderRequest.getOrderItems().stream().map(itemModel ->
         {
             Book book = bookRepository.findById(itemModel.getBookId())
                     .orElseThrow(() -> new EntityNotFoundException("Book not found"));
@@ -112,15 +108,12 @@ public class OrderService implements IOrderService
 
         order.setOrderItems(items);
         orderRepository.save(order);
-
-        return ResponseEntity.ok(Map.of("message", "Porudžbina je uspešno kreirana."));
     }
 
+    @Override
     @Transactional
-    public ResponseEntity<?> deleteOrder(Integer orderId)
+    public void deleteOrder(Integer orderId)
     {
         orderRepository.softDeleteById(orderId);
-
-        return ResponseEntity.ok(Map.of("message", "Porudžbina je uspešno obrisana."));
     }
 }
