@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const useApi = () =>
 {
-    const { accessToken, setAccessToken } = useAuth();
+    const { accessToken, setIsLoggedIn, setAccessToken } = useAuth();
 
     const api = axios.create({
         baseURL: 'http://localhost:8080',
@@ -40,6 +40,7 @@ const useApi = () =>
                     {
                         const data = await refreshResponse.json();
 
+                        setIsLoggedIn(true);
                         setAccessToken(data.accessToken);
 
                         originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
