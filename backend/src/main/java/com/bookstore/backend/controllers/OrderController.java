@@ -1,7 +1,7 @@
 package com.bookstore.backend.controllers;
 
 import com.bookstore.backend.dtos.request.OrderFilterRequest;
-import com.bookstore.backend.dtos.request.OrderRequest;
+import com.bookstore.backend.dtos.request.CreateOrderRequest;
 import com.bookstore.backend.models.OrderModel;
 import com.bookstore.backend.services.IOrderService;
 import com.bookstore.backend.utils.SortHelper;
@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("orders")
@@ -37,14 +39,18 @@ public class OrderController
     }
 
     @PostMapping
-    public ResponseEntity<?> createOrder(@RequestBody OrderRequest orderRequest)
+    public ResponseEntity<?> createOrder(@RequestBody CreateOrderRequest createOrderRequest)
     {
-        return orderService.createOrder(orderRequest);
+        orderService.createOrder(createOrderRequest);
+
+        return ResponseEntity.ok(Map.of("message", "Porudžbina je uspešno kreirana."));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOrder(@PathVariable Integer id)
     {
-        return orderService.deleteOrder(id);
+        orderService.deleteOrder(id);
+
+        return ResponseEntity.ok(Map.of("message", "Porudžbina je uspešno obrisana."));
     }
 }
